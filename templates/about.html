@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>About Us - QR Code-enabled Smart Public Transportation System</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+		<a class="navbar-brand" href="/">Smart Transport System</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/">Home</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/contact">Contact</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/signup">Signup</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<main>
+		<div class="container">
+			<h1 class="text-center">Meet Our Team</h1>
+			<hr>
+			<div class="row">
+				<div class="col-lg-6">
+					<img src="{{ url_for('static', filename='images/img_4.jpeg') }}" alt="Venkatesh Prasad" class="img-fluid rounded">
+				</div>
+				<div class="col-lg-6">
+					<h2>Sai Kiran Reddy</h2>
+					<p>I am Sai Kiran Reddy worked as a Production Engineer for 2 years. I am presently pursing masters
+						at
+						University Of South Florida in Business Analytics and Information Systems. I have come up with
+						the idea of
+						QR code-enabled transportation systems.
+						My contributions to this project involves in creating Booking,and Index pages. I have
+						worked on
+						coding with Java Script, CSS and HTML for designing the pages.
+					</p>
+				</div>
+			</div>
+			<hr>
+			<div class="row flex-row-reverse">
+				<div class="col-lg-6">
+					<img src="{{ url_for('static', filename='images/img_m.jpeg') }}" alt="Manasa Swetha" class="img-fluid rounded">
+				</div>
+				<div class="col-lg-6">
+					<h2>Manasa Swetha</h2>
+					<p>I am Manasa Swetha Tiramareddy worked as a data warehouse engineer in dish network technologies
+						for one year , I am currently pursuing my masters at university of south Florida in Business
+						analytics and information systems. My contributions in this project involves in creating about
+						us page and contact page.</p>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-lg-6">
+					<img src="{{ url_for('static', filename='images/img_v.jpeg') }}" alt="Sai Kiran Reddy" class="img-fluid rounded">
+				</div>
+				<div class="col-lg-6">
+					<h2>Venkatesh Prasad</h2>
+					<p> I am Venkatesh Prasad worked as Deputy Manager in ICIC bank for 3.5 years. I am presently
+						pursing masters at
+						University Of South Florida in Business Analytics and Information Systems. I have come up with
+						the idea of
+						QR code-enabled transportation systems.
+						My contributions to this project involves in creating Signup page. This page enables users
+						to report any
+						issues within the application. I have worked coding with CSS and HTML.
+					</p>
+				</div>
+			</div>
+			<hr>
+			<div class="row flex-row-reverse">
+				<div class="col-lg-6">
+					<img src="{{ url_for('static', filename='images/img_2.jpeg') }}" alt="Vinodh Komati" class="img-fluid rounded">
+				</div>
+				<div class="col-lg-6">
+					<h2>Vinodh Komati</h2>
+					<p> I am Vinodh Komati worked as Business Analyst for Past 3+ years. Currently, I am presently
+						pursiung Masters in
+						Business Analytivs and Information Systems at University of South Florida.
+						My contributions to this project involves in creating Login page. I have made sure that our
+						website looks
+						visually appealing and cohesive across all pages.
+					</p>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="bg-info py-3">
+		<div class="container text-center">
+			<p class="mb-0 text-white">&copy; 2023 Copyrights. All Rights Reserved.</p>
+		</div>
+	</footer>
+</body>
+
+</html>

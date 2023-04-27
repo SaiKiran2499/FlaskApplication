@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Database Results</title>
+</head>
+<body>
+    <h1>These are the results of your ContactUs table from your database</h1>
+    <table border = 1>
+        <thead>
+            <td>Fullname</td>
+            <td>Email</td>
+            <td>Message</td>
+        </thead>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row["fullname"] }}</td>
+            <td>{{ row["email"] }}</td>
+            <td>{{ row["message"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href = "/">Back to Home Page</a>
+</body>
+</html>

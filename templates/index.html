@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" crossorigin="">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landingpage.css') }}">
+</head>
+<script>
+    function initMap() {
+        // Create the map object and set the center and zoom level
+        var map = L.map('map').setView([27.9506, -82.4572], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'your.mapbox.access.token',
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+        }).addTo(map);
+
+        L.marker([27.9506, -82.4572]).addTo(map)
+            .bindPopup('Tampa, Florida, USA')
+            .openPopup();
+
+    }
+</script>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand" href="/">Smart Transport System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Signup</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Welcome to Smart Transport System</h1>
+    <h2>Buy The Ticket and Take a Ride!!</h2>
+    <div class="landing-container">
+        <!-- Add a map using Leaflet -->
+        <div id="map"></div>
+        <script>
+            var map = L.map('map').setView([27.9506, -82.4572], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'your.mapbox.access.token',
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+            }).addTo(map);
+
+            L.marker([27.9506, -82.4572]).addTo(map)
+                .bindPopup('Tampa, Florida, USA')
+                .openPopup();
+        </script>
+
+        <!-- Add an image -->
+        <div><img src="{{ url_for('static', filename='images/bus_disc_20.jpg') }}" alt="Bus image"></div>
+
+        <!-- Add a discount header and paragraph -->
+        <h2 class="discount-header">Get 20% off on all bookings</h2>
+        <p class="discount-para">Book your Bus Tickets and get 20% off on all bookings made before 30th June. Disocunt
+            will be applied automatically at checkout.</p>
+
+        <!-- Add a button to book now -->
+        <a href="/booking" class="book-now-btn">Book Now</a>
+        <h2>Daily Basis Tickets Booking Chart</h2>
+        <canvas id="myChart"></canvas>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                    datasets: [{
+                        label: 'Number of Bus Tickets Sold',
+                        data: [120, 180, 100, 200, 150, 220, 180],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255,99,132,1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    </div>
+    <footer class="bg-info py-3">
+        <div class="container text-center">
+            <p class="mb-0 text-white">&copy; 2023 Copyrights. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+
+</html>

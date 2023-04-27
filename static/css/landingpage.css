@@ -1,0 +1,74 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        right: 0px;
+        position: absolute;
+    }
+}
+
+.deals-container .deal-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.landing-container {
+    padding: 25px 15px;
+}
+
+.landing-container img {
+    max-width: 100%;
+}
+
+#map {
+    position: relative;
+    z-index: 1;
+    height: 400px;
+}
+
+#discount-img {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 20px;
+}
+
+.discount-header {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.discount-para {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.book-now-btn {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+a:hover {
+    color: aliceblue;
+    text-decoration: none;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<script>
+    function validateForm() {
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirmPassword").value.trim();
+        const emailRegEx = /\S+@\S+\.\S+/;
+
+        if (!firstName || !lastName || !email || !username || !password || !confirmPassword) {
+            document.querySelector(".error-message").innerHTML = "Please fill out all required fields";
+            return;
+        }
+
+        if (!emailRegEx.test(email)) {
+            document.querySelector(".error-message").innerHTML = "Please enter a valid email address";
+            return;
+        }
+
+        if (password.length < 8) {
+            document.querySelector(".error-message").innerHTML = "Password must be at least 8 characters long";
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            document.querySelector(".error-message").innerHTML = "Passwords do not match";
+            return;
+        }
+
+        // If all validations pass, submit the form
+        alert("Signup successful");
+        window.location.href = "/"
+        document.querySelector(".error-message").innerHTML = "";
+    }
+</script>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand" href="/">Smart Transport System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/signup">Signup <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="signup-form">
+        <form action="{{ url_for('signup')}}" method="post">
+            <h2>Join Us</h2>
+            <div class="form-icon">
+                <span><i class="fa fa-user"></i></span>
+                <input name="fname" type="text" id="firstName" placeholder="First Name" required>
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-user"></i></span>
+                <input type="text" id="middleName" placeholder="Middle Name">
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-user"></i></span>
+                <input name="lname" type="text" id="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-envelope"></i></span>
+                <input name="email" type="text" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-user"></i></span>
+                <input name="username" type="text" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-car"></i></span>
+                <select id="transport" required>
+                    <option value="">Preferred mode of transport</option>
+                    <option value="bus">Bus</option>
+                    <option value="train">Train</option>
+                </select>
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-lock"></i></span>
+                <input name="password" type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="form-icon">
+                <span><i class="fa fa-lock"></i></span>
+                <input name="conf_pass" type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="error">{{errors}}</div>
+    </div>
+
+
+    <footer class="bg-info py-3">
+        <div class="container text-center">
+            <p class="mb-0 text-white">&copy; 2023 Copyrights. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

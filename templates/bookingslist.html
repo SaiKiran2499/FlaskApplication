@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Database Results</title>
+</head>
+<body>
+    <h1>These are the results of your Bookings table from your database</h1>
+    <table border = 1>
+        <thead>
+            <td>Departure</td>
+            <td>Destination</td>
+            <td>Traveldate</td>
+            <td>Passengers</td>
+        </thead>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row["departure"] }}</td>
+            <td>{{ row["destination"] }}</td>
+            <td>{{ row["traveldate"] }}</td>
+            <td>{{ row["passengers"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href = "/">Back to Home Page</a>
+</body>
+</html>

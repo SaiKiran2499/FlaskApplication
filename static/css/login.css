@@ -1,0 +1,92 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        right: 0px;
+        position: absolute;
+    }
+}
+
+footer {
+    margin-top: auto;
+}
+
+.login-form {
+    width: auto;
+    margin: 50px auto;
+    background: #f2f2f2;
+    padding: 45px;
+    border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+    .login-form {
+        width: 500px;
+    }
+}
+
+.login-form h2 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form .form-icon {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.login-form .form-icon span {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: #adadad;
+}
+
+.login-form .form-icon i {
+    font-size: 22px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 4px 0 10px 36px;
+    margin: 5px 0 25px 0;
+    border: none;
+    border-bottom: 1px solid #adadad;
+    background: transparent;
+    outline: none;
+}
+
+.login-form button {
+    width: 100%;
+    background: #27ae60;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.login-form button:hover {
+    background: #219350;
+}
+
+.login-form .error {
+    color: red;
+    margin-top: 10px;
+}

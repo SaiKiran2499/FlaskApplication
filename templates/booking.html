@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/booking.css') }}">
+</head>
+<script>
+    $(document).ready(function () {
+        $('#booking-form').on('submit', function (e) {
+            e.preventDefault()
+            var data = $(this).serialize();
+
+            $.ajax({
+                url: '/booking',
+                type: 'POST',
+                data: data,
+                success: function (res) {
+                    if (res.success) {
+                        // code for ticket booking and result display
+                        // Calculate total price and display in results
+                        const departure = document.getElementById("departure").value;
+                        const destination = document.getElementById("destination").value;
+                        const date = document.getElementById("date").value;
+                        const passengers = document.getElementById("passengers").value;
+                        const results = document.getElementById("results");
+                        results.style.display = "block";
+
+                        // Display form data in results
+                        document.getElementById("results-departure").textContent = departure;
+                        document.getElementById("results-destination").textContent = destination;
+                        document.getElementById("results-date").textContent = date;
+                        document.getElementById("results-passengers").textContent = passengers;
+
+                        const pricePerPassenger = 50;
+                        const totalPrice = passengers * pricePerPassenger;
+                        document.getElementById("results-price").textContent = "$" + totalPrice;
+
+                        // Generate QR code data
+                        const qrCodeData = {
+                            departure,
+                            destination,
+                            date,
+                            passengers,
+                            totalPrice
+                        };
+                        const qrCodeJson = JSON.stringify(qrCodeData);
+                        const qrCodeEncoded = encodeURIComponent(qrCodeJson);
+
+                        // Generate QR code image URL
+                        const qrCodeUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${qrCodeEncoded}`;
+
+                        // Set img src to QR code image URL
+                        const qrCodeImg = document.getElementById("qr-code");
+                        qrCodeImg.src = qrCodeUrl;
+                        document.getElementById("error-container").style.display = "none";
+                        document.getElementById("results").style.display = "block";
+                    } else {
+                        var warnings = ''
+                        document.getElementById("results").style.display = "none";
+                        for (var i = 0; i < res.errors.length; i++) {
+                            warnings += res.errors[i];
+                        }
+                        document.getElementById("error-container").style.display = "block";
+                        $('#error-container').html(warnings)
+                    }
+                },
+                error: function () {
+                    alert("Something is wrong. Pleas etry again after some time.")
+                }
+            })
+        })
+    })
+    function handleBooking() {
+        event.preventDefault();
+        // Get form data
+        const departure = document.getElementById("departure").value;
+        const destination = document.getElementById("destination").value;
+        const date = document.getElementById("date").value;
+        const passengers = document.getElementById("passengers").value;
+        const today = new Date().toISOString().slice(0, 10);
+
+        // Show results element
+        const results = document.getElementById("results");
+        results.style.display = "block";
+
+        // Display form data in results
+        document.getElementById("results-departure").textContent = departure;
+        document.getElementById("results-destination").textContent = destination;
+        document.getElementById("results-date").textContent = date;
+        document.getElementById("results-passengers").textContent = passengers;
+
+        const errorMessages = [];
+
+        if (!departure) {
+            errorMessages.push("Please enter a departure location.");
+        }
+
+        if (!destination) {
+            errorMessages.push("Please enter a destination location.");
+        }
+
+        if (!date) {
+            errorMessages.push("Please enter a travel date.");
+        } else if (date <= today) {
+            errorMessages.push("Travel date should be after today's date.");
+        }
+
+        if (!passengers) {
+            errorMessages.push("Please enter the number of passengers.");
+        } else if (passengers < 1 || passengers > 10) {
+            errorMessages.push("Number of passengers should be between 1 and 10.");
+        }
+
+        const errorContainer = document.getElementById("error-container");
+        if (errorMessages.length > 0) {
+            errorContainer.innerHTML = "";
+            errorMessages.forEach((message) => {
+                const errorDiv = document.createElement("div");
+                errorDiv.innerText = message;
+                errorDiv.style.color = "red";
+                errorContainer.appendChild(errorDiv);
+            });
+            document.getElementById("results").style.display = "none";
+            return false;
+        } else {
+            errorContainer.innerHTML = "";
+            // code for ticket booking and result display
+            // Calculate total price and display in results
+
+            const pricePerPassenger = 50;
+            const totalPrice = passengers * pricePerPassenger;
+            document.getElementById("results-price").textContent = "$" + totalPrice;
+
+            // Generate QR code data
+            const qrCodeData = {
+                departure,
+                destination,
+                date,
+                passengers,
+                totalPrice
+            };
+            const qrCodeJson = JSON.stringify(qrCodeData);
+            const qrCodeEncoded = encodeURIComponent(qrCodeJson);
+
+            // Generate QR code image URL
+            const qrCodeUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${qrCodeEncoded}`;
+
+            // Set img src to QR code image URL
+            const qrCodeImg = document.getElementById("qr-code");
+            qrCodeImg.src = qrCodeUrl;
+            document.getElementById("results").style.display = "block";
+        }
+
+        // Prevent default form submission
+        return false;
+    }
+
+    // Get submit button element and attach handleBooking function to its onclick attribute
+    const submitBtn = document.querySelector("button[type='submit']");
+    submitBtn.onclick = handleBooking;
+
+</script>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand" href="/">Smart Transport System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Signup</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container booking-container">
+        <h1>Bus Tickets Booking Page</h1>
+        <form id="booking-form">
+            <label for="departure">Departure:</label>
+            <input name="departure" type="text" id="departure" name="departure" required>
+
+            <label for="destination">Destination:</label>
+            <input name="destination" type="text" id="destination" name="destination" required>
+
+            <label for="date">Date:</label>
+            <input name="traveldate" type="date" id="date" name="date" required>
+
+            <label for="passengers">Number of Passengers:</label>
+            <input name="passengers" type="number" id="passengers" name="passengers" min="1" max="10" required>
+            <div id="error-container"></div>
+            <button type="submit">Book Tickets</button>
+            <div id="booking-form-success"></div>
+        </form>
+
+        <div id="results">
+            <h2>Your Tickets</h2>
+            <p><strong>Departure:</strong> <span id="results-departure"></span></p>
+            <p><strong>Destination:</strong> <span id="results-destination"></span></p>
+            <p><strong>Date:</strong> <span id="results-date"></span></p>
+            <p><strong>Number of Passengers:</strong> <span id="results-passengers"></span></p>
+            <p><strong>Total Price:</strong> <span id="results-price"></span></p>
+            <img id="qr-code" alt="QR code" />
+        </div>
+    </div>
+
+    <footer class="bg-info py-3">
+        <div class="container text-center">
+            <p class="mb-0 text-white">&copy; 2023 Copyrights. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        right: 0px;
+        position: absolute;
+    }
+}
+
+footer {
+    margin-top: auto;
+}
+
+.container .row {
+  margin-bottom: 15px;
+}
+.member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  
+  .member img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .member-info {
+    text-align: center;
+  }
+  
+  .member-info h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .member-info p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .row p {
+    text-align: justify;
+  }
+  
